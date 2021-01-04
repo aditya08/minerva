@@ -1,5 +1,5 @@
 # minerva
-![Python Package and Testing](https://github.com/aditya08/master/workflows/Python%20Package/badge.svg)
+![Build and Test](https://github.com/aditya08/minerva/workflows/Python%20package/badge.svg)
 
 A python tool to aggregate and summarize financial information locally on your personal machine.
 This tool might be for you if you don't want to share your financial account information with 3rd-party, closed-source apps. This package is free-to-use and does not collect any information.
