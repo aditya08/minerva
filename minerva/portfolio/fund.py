@@ -4,21 +4,16 @@ from minerva.portfolio.scraper import Scraper
 class Fund(Asset):
     def __init__(self, ticker, quantity, basis, expense_ratio, sector, description):
         self.ticker = ticker
-        self.quantity = quantity
-        self.basis = basis
+        self.update_quantity(quantity)
+        self.update_basis(basis)
         self.price = -1
-        if isinstance(expense_ratio, str):
-            self.expense_ratio = float(expense_ratio.strip('%'))/100
-        elif isinstance(expense_ratio, float):
-            self.expense_ratio = expense_ratio
-        else:
-            raise TypeError("expense_ratio must be of type str or float. Instead got {}".format(type(expense_ratio)))
-        self.sector = sector
-        self.description = description
+        self.update_expense_ratio(expense_ratio)
+        self.update_sector(sector)
+        self.update_description(description)
         scraper = Scraper()
         quote = scraper.quote(ticker)
         self.price = float(quote['Previous close'].strip('$'))
-    
+
     def update_price(self, price):
         if price > 0.:
             self.price = price
@@ -38,6 +33,12 @@ class Fund(Asset):
             raise ValueError('basis must be > 0. but got {}'.format(basis))
 
     def update_expense_ratio(self, expense_ratio):
+        if isinstance(expense_ratio, str):
+            expense_ratio = float(expense_ratio.strip('%'))/100
+        elif isinstance(expense_ratio, float):
+            pass
+        else:
+            raise TypeError("expense_ratio must be of type str or float. Instead got {}".format(type(expense_ratio)))
         if expense_ratio > 0.:
             self.expense_ratio = expense_ratio
         else:
