@@ -1,6 +1,7 @@
 from minerva.portfolio.portfolio import Portfolio
 import bokeh
 
+
 class Visualize(object):
     def __init__(self, portfolio):
         self.portfolio = portfolio
