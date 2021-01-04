@@ -1,6 +1,0 @@
-{
-    "finnhub": "bu9ftdv48v6tjsddjh40",
-    "scraper_googlefinance_baseurl": "https://www.google.com/finance/quote/",
-    "scraper_googlefinance_exchanges": ["NYSEARCA", "NASDAQ", "MUTF", "BATS"],
-    "scraper_googlefinance_delimiter": ":"
-}
