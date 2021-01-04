@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
 setup(name="Minerva",
-        package_dir={"minerva":"src"},
-        packages=["minerva"],
+        packages=find_packages(where='src'),
+        package_dir={"":"src"},
         package_data={"":["*.json"]})
