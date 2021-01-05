@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from requests_html import HTMLSession
 import json
 import time
 import importlib.resources
@@ -20,16 +21,34 @@ class Scraper(object):
 
     def quote(self, ticker):
         url = self.baseurl+ticker.upper()
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, "html.parser")
         if self.source == 'google':
-            data = soup.find("div", class_='eYanAe')
-            keys = [x.get_text() for x in data.find_all("div", class_='iYuiXc')]
-            vals = [x.get_text() for x in  data.find_all("div", class_='P6K39c')]
-            data = dict(zip(keys, vals))
-            return data
+            return self._scrape_google_finance(url)
         elif self.source == 'yahoo':
-            #TODO
-            raise NotImplementedError("yahoo scraping is not implemented yet.")
+            return self._scrape_yahoo_finance(url)
         else:
             raise ValueError("Scraping source must be 'google' or 'yahoo'. Got {} instead.".format(self.source))
+
+    def _scrape_google_finance(self, url):
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        close = soup.find("div", class_="YMlKec fxKbKc")
+        keys = ['Close']
+        vals = [close.get_text()]
+        data = soup.find("div", class_='eYanAe')
+        keys += [x.get_text() for x in data.find_all("div", class_='iYuiXc')]
+        vals += [x.get_text() for x in  data.find_all("div", class_='P6K39c')]
+        data = dict(zip(keys, vals))
+        return data
+
+    def _scrape_yahoo_finance(self, url):
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        close = soup.find("span", class_='Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)')
+        keys = ['Close']
+        vals = [close.text]
+        data = soup.find("div", {'id': 'quote-summary'})
+        data = [x.get_text() for x in data.find_all("td")]
+        keys += data[::2]
+        vals += data[1::2]
+        data = dict(zip(keys, vals))
+        return data

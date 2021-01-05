@@ -6,7 +6,7 @@ import pytest
 def test_fund_creation():
     vti = Fund('VTI:NYSEARCA', 10, 139.50, 0.0003, "US Total Market", "Vanguard US Total Market ETF")
     scraper = Scraper()
-    price = float(scraper.quote('vti:nysearca')['Previous close'].strip('$'))
+    price = float(scraper.quote('vti:nysearca')['Close'].strip('$'))
     assert vti.ticker == 'VTI:NYSEARCA', "Should be VTI:NYSEARCA."
     assert vti.quantity == 10, "Should be 10."
     assert vti.basis == 139.50, "Should be 139.50."

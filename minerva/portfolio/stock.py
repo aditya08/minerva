@@ -11,7 +11,7 @@ class Stock(Asset):
         self.description = description
         scraper = Scraper()
         quote = scraper.quote(ticker)
-        self.price = float(quote['Previous close'].strip('$'))
+        self.price = float(quote['Close'].strip('$'))
 
     def update_quantity(self, quantity):
         if quantity > 0:
