@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from requests_html import HTMLSession
 import json
 import time
 import importlib.resources
