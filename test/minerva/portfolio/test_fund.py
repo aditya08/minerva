@@ -3,7 +3,7 @@ from minerva.portfolio.scraper import Scraper
 import pytest
 
 
-def test_fund_creation():
+def test_etf_creation():
     vti = Fund('VTI:NYSEARCA', 10, 139.50, 0.0003, "US Total Market", "Vanguard US Total Market ETF")
     scraper = Scraper()
     price = float(scraper.quote('vti:nysearca')['Close'].strip('$'))
@@ -15,12 +15,23 @@ def test_fund_creation():
     assert vti.description == 'Vanguard US Total Market ETF', "Should be 'Vanguard US Total Market ETF'"
     assert vti.price == price, "Should be > 0."
 
+def test_mutualfund_creation():
+    vti = Fund('VTSAX:MUTF', 10, 139.50, 0.0003, "US Total Market", "Vanguard US Total Market Index Fund")
+    scraper = Scraper()
+    price = float(scraper.quote('vtsax:mutf')['Close'].strip('$'))
+    assert vti.ticker == 'VTSAX:MUTF', "Should be VTSAX:MUTF."
+    assert vti.quantity == 10, "Should be 10."
+    assert vti.basis == 139.50, "Should be 139.50."
+    assert vti.expense_ratio == 0.0003, "Should be 0.0003."
+    assert vti.sector == 'US Total Market', "Should be 'US Total Market'"
+    assert vti.description == 'Vanguard US Total Market Index Fund', "Should be 'Vanguard US Total Market Index Fund'"
+    assert vti.price == price, "Should be > 0."
 
 def test_fund_expense_ratio_type():
-    vti = Fund('VTI:NYSEARCA', 10, 139.50, "0.03%", "US Total Market", "Vanguard US Total Market ETF")
+    vti = Fund('VTSAX:MUTF', 10, 139.50, "0.03%", "US Total Market", "Vanguard US Total Market ETF")
     assert vti.expense_ratio == 0.0003, "Should be 0.0003"
     with pytest.raises(TypeError):
-        vti = Fund('VTI:NYSEARCA', 10, 139.50, 3, "US Total Market", "Vanguard US Total Market ETF")
+        vti = Fund('VTSAX:MUTF', 10, 139.50, 3, "US Total Market", "Vanguard US Total Market ETF")
 
 
 def test_fund_update_methods():
