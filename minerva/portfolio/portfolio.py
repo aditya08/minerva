@@ -41,11 +41,11 @@ class Portfolio(object):
         for acct_value in acct_values:
             self.weights.append(acct_value/self.value)
 
-    def asset_categories(self):
-        asset_categories = []
+    def asset_sectors(self):
+        asset_sectors = []
         for account in self.accounts:
-            asset_categories.append(account.asset_categories())
-        return asset_categories
+            asset_sectors.append(account.asset_sectors())
+        return asset_sectors
 
     def asset_weights(self):
         asset_weights = []

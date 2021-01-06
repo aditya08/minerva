@@ -254,10 +254,10 @@ class Account(object):
                 raise ValueError("Unsupported 'type' {} found.".format(asset['type']))
         return item
 
-    def asset_categories(self):
-        asset_categories = []
+    def asset_sectors(self):
+        asset_sectors = []
         for asset in self.assets:
-            asset_categories.append(asset.sector)
+            asset_sectors.append(asset.sector)
 
     def asset_weights(self):
         return self.weights

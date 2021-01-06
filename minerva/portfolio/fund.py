@@ -12,7 +12,7 @@ class Fund(Asset):
         self.update_description(description)
         scraper = Scraper()
         quote = scraper.quote(ticker)
-        self.price = float(quote['Close'].strip('$'))
+        self.price = float(quote['Close'].replace('$', '').replace(',', ''))
 
     def update_price(self, price):
         if price > 0.:

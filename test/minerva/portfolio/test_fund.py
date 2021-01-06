@@ -13,7 +13,7 @@ def test_etf_creation():
     assert vti.expense_ratio == 0.0003, "Should be 0.0003."
     assert vti.sector == 'US Total Market', "Should be 'US Total Market'"
     assert vti.description == 'Vanguard US Total Market ETF', "Should be 'Vanguard US Total Market ETF'"
-    assert vti.price == price, "Should be > 0."
+    assert vti.price == price, "Should be {}.".format(price)
 
 def test_mutualfund_creation():
     vti = Fund('VTSAX:MUTF', 10, 139.50, 0.0003, "US Total Market", "Vanguard US Total Market Index Fund")
