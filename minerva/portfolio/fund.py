@@ -1,8 +1,10 @@
 from minerva.portfolio.asset import Asset
 from minerva.portfolio.scraper import Scraper
 
+
 class Fund(Asset):
-    def __init__(self, ticker, quantity, basis, expense_ratio, sector, description):
+    def __init__(self, ticker, quantity, basis, expense_ratio,
+                 sector, description):
         self.ticker = ticker
         self.update_quantity(quantity)
         self.update_basis(basis)
@@ -13,19 +15,22 @@ class Fund(Asset):
         scraper = Scraper()
         quote = scraper.quote(ticker)
         self.price = float(quote['Close'].replace('$', '').replace(',', ''))
+        self.value = self.price*self.quantity
 
     def update_price(self, price):
         if price > 0.:
             self.price = price
-        else:   
+        else:
             raise ValueError('price must be > 0. but got {}'.format(price))
+        self.value = price*self.quantity
 
     def update_quantity(self, quantity):
         if quantity > 0:
             self.quantity = quantity
         else:
-            raise ValueError('quantity must be > 0 but got {}'.format(quantity))
-    
+            raise ValueError('quantity must be > 0 but got {}'
+                  .format(quantity))
+
     def update_basis(self, basis):
         if basis > 0.:
             self.basis = basis
@@ -38,12 +43,15 @@ class Fund(Asset):
         elif isinstance(expense_ratio, float):
             pass
         else:
-            raise TypeError("expense_ratio must be of type str or float. Instead got {}".format(type(expense_ratio)))
+            raise TypeError(
+                  "expense_ratio must be of type str or float. Instead got {}"
+                  .format(type(expense_ratio)))
         if expense_ratio > 0.:
             self.expense_ratio = expense_ratio
         else:
-            raise ValueError('expense_ratio must be > 0. but got {}'.format(expense_ratio))
-    
+            raise ValueError('expense_ratio must be > 0. but got {}'
+                  .format(expense_ratio))
+
     def update_sector(self, sector):
         if len(sector) > 0:
             self.sector = sector

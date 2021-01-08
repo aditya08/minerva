@@ -1,5 +1,4 @@
 {
     "scraper_googlefinance_baseurl": "https://www.google.com/finance/quote/",
     "scraper_yahoofinance_baseurl": "https://finance.yahoo.com/quote/"
-
 }

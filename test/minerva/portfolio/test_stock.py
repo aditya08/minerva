@@ -2,8 +2,9 @@ from minerva.portfolio.stock import Stock
 from minerva.portfolio.scraper import Scraper
 import pytest
 
+
 def test_stock_creation():
-    aapl = Stock('AAPL:NASDAQ',10, 200, 'Technology', 'Apple Inc.')
+    aapl = Stock('AAPL:NASDAQ', 10, 200, 'Technology', 'Apple Inc.')
     scraper = Scraper()
     quote = scraper.quote('AAPL:NASDAQ')
     price = float(quote['Close'].strip('$'))
@@ -12,6 +13,8 @@ def test_stock_creation():
     assert aapl.basis == 200, "Should be 200."
     assert aapl.sector == 'Technology', "Should be 'Technology'."
     assert aapl.description == 'Apple Inc.', "Should be 'Apple Inc.'."
+    assert aapl.value == 10*price, "Should be {}.".format(20*price)
+
 
 def test_stock_update_methods():
     goog = Stock('GOOG:NASDAQ', 1, 1000, 'Technology', 'Alphabet Inc.')
@@ -21,10 +24,12 @@ def test_stock_update_methods():
     goog.update_quantity(5)
     goog.update_sector('IT')
     assert goog.basis == 1500, "Should be 1500."
-    assert goog.description == "Was Google Inc.", "Should be 'Was Google Inc.'."
+    assert goog.description == "Was Google Inc.",\
+                               "Should be 'Was Google Inc.'."
     assert goog.price == 100, "Should be 100."
     assert goog.quantity == 5, "Should be 5."
     assert goog.sector == 'IT', "Should be 'IT'."
+    assert goog.value == 100*5, "Should be {}.".format(100*5)
 
     with pytest.raises(ValueError):
         goog.update_basis(-1)
