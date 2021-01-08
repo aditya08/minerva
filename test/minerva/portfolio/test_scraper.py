@@ -21,6 +21,7 @@ def test_scraper_google():
 def test_scraper_badinitargs():
     with pytest.raises(ValueError):
         scraper = Scraper('')
+    with pytest.raises(ValueError):
         scraper = Scraper('asfjads;f')
     scraper = Scraper('YAhoo')
     assert scraper.baseurl != '', "Should not be empty."
@@ -33,9 +34,15 @@ def test_scraper_badquoteargs():
     google_scraper = Scraper('google')
     with pytest.raises(ValueError):
         yahoo_scraper.quote('')
+    with pytest.raises(ValueError):
         google_scraper.quote('')
     with pytest.raises(TypeError):
         yahoo_scraper.quote('asdfdsaf')
+    with pytest.raises(ValueError):
         google_scraper.quote('asdfadf')
+    with pytest.raises(ValueError):
         google_scraper.quote(':adfa')
+    with pytest.raises(ValueError):
         google_scraper.quote('adfad:')
+    with pytest.raises(TypeError):
+        google_scraper.quote('adf:adf')

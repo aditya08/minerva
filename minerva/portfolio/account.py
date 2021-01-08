@@ -213,7 +213,7 @@ class Account(object):
                      asset.quantity*asset.basis)/adj_quantity
         if adj_basis < 0:
             raise ValueError(
-                  'basis of selling asset exceeds basis in account.')
+                  'value of selling asset exceeds value available in account.')
         found_asset.update_quantity(adj_quantity)
         found_asset.update_basis(adj_basis)
 

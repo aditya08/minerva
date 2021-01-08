@@ -46,10 +46,10 @@ class Fund(Asset):
             raise TypeError(
                   "expense_ratio must be of type str or float. Instead got {}"
                   .format(type(expense_ratio)))
-        if expense_ratio > 0.:
+        if expense_ratio >= 0.:
             self.expense_ratio = expense_ratio
         else:
-            raise ValueError('expense_ratio must be > 0. but got {}'
+            raise ValueError('expense_ratio must be >= 0. but got {}'
                   .format(expense_ratio))
 
     def update_sector(self, sector):

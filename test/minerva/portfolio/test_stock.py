@@ -38,10 +38,17 @@ def test_stock_update_methods():
 
     with pytest.raises(ValueError):
         goog.update_basis(-1)
+    with pytest.raises(ValueError):
         goog.update_basis(0)
+    with pytest.raises(ValueError):
         goog.update_description('')
+    with pytest.raises(ValueError):
         goog.update_price(-1)
+    with pytest.raises(ValueError):
         goog.update_price(0)
+    with pytest.raises(ValueError):
         goog.update_quantity(0)
+    with pytest.raises(ValueError):
         goog.update_quantity(-1)
+    with pytest.raises(ValueError):
         goog.update_sector('')

@@ -63,10 +63,21 @@ def test_fund_update_methods():
     # test exception raised
     with pytest.raises(ValueError):
         vti.update_description('')
+    with pytest.raises(ValueError):
         vti.update_sector('')
+    with pytest.raises(ValueError):
         vti.update_basis(0)
-        vti.update_sector(-1)
+    with pytest.raises(ValueError):
+        vti.update_basis(-1)
+    with pytest.raises(ValueError):
         vti.update_quantity(0)
+    with pytest.raises(ValueError):
         vti.update_quantity(-1)
+    with pytest.raises(ValueError):
         vti.update_price(0)
+    with pytest.raises(ValueError):
         vti.update_price(-1)
+    with pytest.raises(ValueError):
+        vti.update_expense_ratio(-1.)
+    with pytest.raises(ValueError):
+        vti.update_expense_ratio("-0.03%")

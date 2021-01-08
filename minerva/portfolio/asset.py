@@ -1,3 +1,3 @@
 class Asset(object):
     def __init__(self):
-        return
+        raise NotImplementedError('This base class is not implemented yet.')

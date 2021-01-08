@@ -34,9 +34,6 @@ class Scraper(object):
             return self._scrape_google_finance(url)
         elif self.source == 'yahoo':
             return self._scrape_yahoo_finance(url)
-        else:
-            raise ValueError("Scraping source must be 'google' or 'yahoo'."
-                  + "Got {} instead.".format(self.source))
 
     def _scrape_google_finance(self, url):
         page = requests.get(url)
