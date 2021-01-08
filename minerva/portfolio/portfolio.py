@@ -1,23 +1,24 @@
 from .account import Account
 import pickle
 
+
 class Portfolio(object):
     def __init__(self, name=''):
         self.name = name
         self.accounts = []
         self.weights = []
         self.value = 0
-    
+
     def __len__(self):
         return len(self.accounts)
-    
+
     def __str__(self):
         port_str = self.name + ': ' + len(self.accounts) + ' accounts\n'
         port_str += '---------------------------------------------------'
         for acct in self.accounts:
             port_str += str(acct)
         return port_str
-    
+
     def __repr__(self):
         return ''
 

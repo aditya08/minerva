@@ -16,6 +16,11 @@ def test_stock_creation():
     assert aapl.value == 10*price, "Should be {}.".format(20*price)
 
 
+def test_stock_malformed_args():
+    with pytest.raises(TypeError):
+        Stock('AAPLL:NASDAQ', 10, 200, 'Technology', 'Apple Inc.')
+
+
 def test_stock_update_methods():
     goog = Stock('GOOG:NASDAQ', 1, 1000, 'Technology', 'Alphabet Inc.')
     goog.update_basis(1500)

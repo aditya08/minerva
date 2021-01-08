@@ -23,7 +23,8 @@ class Account(object):
         self.weights = []
         if len(assets) > 0:
             self.assets += assets
-        self.update_weights()
+            self.update_weights()
+            self.update_value()
 
     def __len__(self):
         return len(self.assets)
@@ -239,9 +240,14 @@ class Account(object):
     def update_weights(self):
         self.weights = []
         asset_values = [asset.price*asset.quantity for asset in self.assets]
-        self.value = sum(asset_values)
-        for value in asset_values:
-            self.weights.append(value/self.value)
+        value = sum(asset_values)
+        for v in asset_values:
+            self.weights.append(v/value)
+
+    def update_value(self):
+        self.value = 0
+        for asset in self.assets:
+            self.value += asset.value
 
     def _parse_assets(self, lines):
         assets = []

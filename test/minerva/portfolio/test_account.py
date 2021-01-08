@@ -14,3 +14,9 @@ def test_account_creation():
     acct = Account('Roth IRA', assets)
     assert acct.name == 'Roth IRA', "Should be 'Roth IRA'."
     assert acct.assets == assets, "Should be the list of assets."
+    assert len(acct) == 4, "Should be 4."
+    value = aapl.value + abv.value + fxnax.value + vti.value
+    assert acct.value == value, "Should be {}.".format(value)
+    for i, asset in enumerate(assets):
+        weight = asset.value/value
+        assert acct.weights[i] == weight, "Should be {}.".format(weight)
